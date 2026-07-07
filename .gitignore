@@ -1,0 +1,16 @@
+node_modules/
+test-results/
+playwright-report/
+playwright/.cache/
+blob-report/
+
+# Env / secrets
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
