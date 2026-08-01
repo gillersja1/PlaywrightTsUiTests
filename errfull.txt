@@ -1,0 +1,6 @@
+
+SyntaxError: Cannot use import statement outside a module
+Listing tests:
+
+SyntaxError: Cannot use import statement outside a module
+Total: 0 tests in 0 files
