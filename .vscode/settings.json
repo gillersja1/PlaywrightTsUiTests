@@ -1,0 +1,7 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "playwright.reuseBrowser": false,
+  "testing.openTesting": "never",
+  "testing.automaticallyOpenPeekView": "never",
+  "testing.automaticallyOpenTestResults": "never"
+}
