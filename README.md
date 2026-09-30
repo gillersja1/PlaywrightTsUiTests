@@ -109,6 +109,33 @@ This repo intentionally ignores planning/checklist documents so they are never c
 The ignore rules in `.gitignore` include common plan-file naming patterns, such as
 `plan`, `todo`, `roadmap`, `checklist`, `notes`, and `summary`.
 
+## Reviewing Playwright artifacts locally
+
+After a test run, Playwright stores traces and videos in the `test-results/` folder.
+On Windows, you can inspect the generated files directly from PowerShell:
+
+```powershell
+Get-ChildItem -Recurse .\test-results -File | Select-Object FullName, Name, Extension
+```
+
+To open a trace from the command line:
+
+```powershell
+npx playwright show-trace .\test-results\<test-name>-<project>\trace.zip
+```
+
+To open the HTML report:
+
+```powershell
+npx playwright show-report
+```
+
+Typical files you will see include:
+
+- `trace.zip` — browser trace for debugging the test flow
+- `video.webm` — captured browser video for the run
+- `test-failed-1.png` — screenshot captured on failure
+
 ## Possible extensions
 
 - Add visual regression tests using Playwright's built-in screenshot comparison
