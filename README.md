@@ -12,8 +12,8 @@ This is a portfolio/demo project showing:
 - The Page Object Model pattern
 - Cross-browser coverage (Chromium, Firefox, WebKit) plus a mobile emulation
   project, all configured declaratively in `playwright.config.ts`
-- Sensible CI defaults: retries, tracing, screenshots/video only on failure
-- A working GitHub Actions pipeline with an HTML report artifact
+- Sensible CI defaults: retries, full trace capture, videos on every run, screenshots on failure
+- A working GitHub Actions pipeline with HTML report and Playwright artifact uploads
 
 ## Project structure
 
@@ -68,16 +68,30 @@ against:
 Each test file also runs independently across all four — no extra code
 needed, Playwright Test handles the fan-out.
 
-On CI, failed tests retry up to twice, and traces/videos are only kept for
-failures to keep artifacts small.
+On CI, failed tests retry up to twice. For each run, Playwright records a
+trace and a video, so debugging remains easy on both pass and fail outcomes.
+
+## Finding trace and video files
+
+After a local or CI run, files are created in the `test-results/` directory:
+
+- `trace.zip` for the browser session trace
+- `video.webm` for the recorded run
+
+Example:
+
+```bash
+npx playwright show-trace test-results/<test-name>-<project>/trace.zip
+```
+
+The HTML report is still available under `playwright-report/`.
 
 ## What's being tested
 
 - **`login.spec.ts`** — standard login, locked-out user, empty-field
   validation, and invalid-credential handling
-- **`cart.spec.ts`** — adding one or more items to the cart and verifying
-  the cart badge count, plus verifying the "price low to high" sort actually
-  sorts
+- **`cart.spec.ts`** — adding/removing items, cart badge validation, checkout,
+  and verifying the "price low to high" sort actually sorts
 
 ## CI/CD
 
@@ -86,7 +100,8 @@ failures to keep artifacts small.
 1. Installs Node dependencies (`npm ci`)
 2. Installs Playwright's browsers with OS dependencies
 3. Runs the full suite across all four projects
-4. Uploads the HTML report as a build artifact, even on failure
+4. Uploads the HTML report and the raw Playwright artifacts (`test-results/`)
+   as build artifacts, even on failure
 
 ## Possible extensions
 

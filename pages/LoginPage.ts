@@ -27,4 +27,9 @@ export class LoginPage {
     await this.passwordInput.fill(password);
     await this.loginButton.click();
   }
+
+  async logout() {
+    await this.page.locator('#react-burger-menu-btn').click();
+    await this.page.locator('#logout_sidebar_link').click();
+  }
 }

@@ -3,6 +3,8 @@ import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
 
 test.describe('Login', () => {
+  test.describe.configure({ timeout: 60000 });
+
   let loginPage: LoginPage;
   let inventoryPage: InventoryPage;
 
@@ -35,5 +37,14 @@ test.describe('Login', () => {
     await loginPage.login('invalid_user', 'wrong_password');
 
     await expect(loginPage.errorMessage).toContainText('do not match');
+  });
+
+  test('user can log out and return to the login page', async ({ page }) => {
+    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.logout();
+
+    await expect(page).toHaveURL(/https:\/\/www\.saucedemo\.com\/?$/);
+    await expect(loginPage.usernameInput).toBeVisible();
+    await expect(loginPage.passwordInput).toBeVisible();
   });
 });

@@ -14,3 +14,17 @@ npm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Planning/checklist docs (never commit)
+**/*plan*.md
+**/*plan*.txt
+**/*todo*.md
+**/*todo*.txt
+**/*roadmap*.md
+**/*roadmap*.txt
+**/*checklist*.md
+**/*checklist*.txt
+**/*notes*.md
+**/*notes*.txt
+**/*summary*.md
+**/*summary*.txt

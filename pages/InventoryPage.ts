@@ -23,6 +23,27 @@ export class InventoryPage {
     await item.getByRole('button', { name: 'Add to cart' }).click();
   }
 
+  async removeItemFromCart(itemName: string) {
+    const item = this.inventoryItems.filter({ hasText: itemName });
+    await item.getByRole('button', { name: 'Remove' }).click();
+  }
+
+  async openCart() {
+    await this.page.locator('.shopping_cart_link').click();
+  }
+
+  async goToCheckout() {
+    await this.page.getByRole('button', { name: 'Checkout' }).click();
+  }
+
+  async completeCheckout(firstName: string, lastName: string, postalCode: string) {
+    await this.page.locator('#first-name').fill(firstName);
+    await this.page.locator('#last-name').fill(lastName);
+    await this.page.locator('#postal-code').fill(postalCode);
+    await this.page.getByRole('button', { name: 'Continue' }).click();
+    await this.page.getByRole('button', { name: 'Finish' }).click();
+  }
+
   async getCartCount(): Promise<number> {
     if (!(await this.cartBadge.isVisible())) {
       return 0;
