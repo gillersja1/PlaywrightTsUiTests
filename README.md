@@ -103,6 +103,12 @@ The HTML report is still available under `playwright-report/`.
 4. Uploads the HTML report and the raw Playwright artifacts (`test-results/`)
    as build artifacts, even on failure
 
+## Git hygiene
+
+This repo intentionally ignores planning/checklist documents so they are never committed.
+The ignore rules in `.gitignore` include common plan-file naming patterns, such as
+`plan`, `todo`, `roadmap`, `checklist`, `notes`, and `summary`.
+
 ## Possible extensions
 
 - Add visual regression tests using Playwright's built-in screenshot comparison
