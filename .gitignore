@@ -4,6 +4,11 @@ playwright-report/
 playwright/.cache/
 blob-report/
 
+# Build output / editor state
+build/
+.vs/
+*.bak
+
 # Env / secrets
 .env
 

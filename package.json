@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "test": "playwright test --config=playwright.config.ts",
+    "typecheck": "tsc --noEmit",
     "test:headed": "playwright test --headed --config=playwright.config.ts",
     "test:ui": "playwright test --ui --config=playwright.config.ts",
     "test:debug": "playwright test --debug --config=playwright.config.ts",
