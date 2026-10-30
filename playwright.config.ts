@@ -7,7 +7,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 2 : undefined,
-  reporter: [['html', { open: 'never' }], ['list']],
+  // junit.xml is for test-results-otel in CI.
+  reporter: [['html', { open: 'never' }], ['list'], ['junit', { outputFile: 'test-results/junit.xml' }]],
 
   use: {
     baseURL: 'https://www.saucedemo.com',
