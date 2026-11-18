@@ -1,0 +1,40 @@
+jenkins:
+  systemMessage: "Local Jenkins for PlaywrightTsUiTests, configured as code."
+  # Builds run on the Playwright agent, never on the controller.
+  numExecutors: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: ${JENKINS_ADMIN_ID}
+          password: ${JENKINS_ADMIN_PASSWORD}
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+unclassified:
+  location:
+    url: http://localhost:8080/
+
+jobs:
+  - script: |
+      multibranchPipelineJob('PlaywrightTsUiTests') {
+        displayName('Playwright TS UI Tests')
+        branchSources {
+          git {
+            id('playwright-ts-ui-tests')
+            remote('https://github.com/gillersja1/PlaywrightTsUiTests.git')
+          }
+        }
+        orphanedItemStrategy {
+          discardOldItems {
+            numToKeep(5)
+          }
+        }
+        // GitHub cannot reach localhost, so poll for new commits instead of using a webhook.
+        triggers {
+          periodicFolderTrigger {
+            interval('5m')
+          }
+        }
+      }

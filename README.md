@@ -28,6 +28,8 @@ PlaywrightTsUiTests/
 ├── playwright.config.ts    # Browsers, reporters, tracing, base URL
 ├── tsconfig.json
 ├── package.json
+├── Jenkinsfile             # Jenkins pipeline
+├── jenkins/                # Local Jenkins controller and agent, as code
 └── .github/workflows/playwright.yml
 ```
 
@@ -102,6 +104,31 @@ The HTML report is still available under `playwright-report/`.
 3. Runs the full suite across all four projects
 4. Uploads the HTML report and the raw Playwright artifacts (`test-results/`)
    as build artifacts, even on failure
+
+### Jenkins
+
+The same suite also runs on a local Jenkins defined entirely in code. The
+`Jenkinsfile` installs dependencies, type-checks, runs the tests, and publishes
+JUnit trends and the Playwright HTML report for each build.
+
+- **Controller:** configured with Jenkins Configuration as Code and Job DSL, so
+  there is no manual setup
+- **Agent:** a separate container built on the official Playwright image
+- **Triggers:** a multibranch job checks GitHub for new commits every 5 minutes
+
+To run it, you need Docker:
+
+```bash
+cd jenkins
+cp .env.example .env       # then set your own password
+docker compose up -d --build
+```
+
+Open <http://localhost:8080> and sign in with the credentials from `.env`.
+Stop it with `docker compose down`. Your build history is kept in a Docker volume.
+
+When you upgrade `@playwright/test`, update the image tag in
+`jenkins/agent/Dockerfile` to match.
 
 ## Git hygiene
 

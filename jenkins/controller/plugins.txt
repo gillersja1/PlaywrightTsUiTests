@@ -1,0 +1,10 @@
+configuration-as-code
+job-dsl
+workflow-aggregator
+git
+junit
+htmlpublisher
+pipeline-graph-view
+swarm
+timestamper
+ws-cleanup
